@@ -18,12 +18,12 @@ GymPass style app.
 
 ## RNs (Regras de negócios)
 
--[ ] O usuário não deve poder se cadastrar com um e-mail duplicado;
--[ ] O usuário não deve poder fazer 2 check-ins no mesmo dia;
--[ ] O usuário não deve poder fazer check-ins se não estiver perto (100m) da academia;
--[ ] O check-in só pode ser validado até 20 minutos após criado;
--[ ] O check-in só pode ser validade por administradores;
--[ ] A academia só pode ser cadastrada por administradores;
+- [ ] O usuário não deve poder se cadastrar com um e-mail duplicado;
+- [ ] O usuário não deve poder fazer 2 check-ins no mesmo dia;
+- [ ] O usuário não deve poder fazer check-ins se não estiver perto (100m) da academia;
+- [ ] O check-in só pode ser validado até 20 minutos após criado;
+- [ ] O check-in só pode ser validade por administradores;
+- [ ] A academia só pode ser cadastrada por administradores;
 
 ## RNFs (Requisitos não-funcionais)
 

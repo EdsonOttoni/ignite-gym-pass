@@ -51,5 +51,5 @@ model Gym {
 
   CheckIns CheckIn[]
 
-  @@map("gyms/")
+  @@map("gyms")
 }

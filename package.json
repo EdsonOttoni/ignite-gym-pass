@@ -27,6 +27,7 @@
     "typescript": "5.0.4"
   },
   "dependencies": {
+    "bcryptjs": "2.4.3",
     "dotenv": "16.0.3",
     "fastify": "4.17.0",
     "zod": "3.21.4"

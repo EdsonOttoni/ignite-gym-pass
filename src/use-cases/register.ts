@@ -1,5 +1,6 @@
 import { UsersRepository } from '@/repositories/users-repository'
 import { UserAlreadyExistsError } from '@/shared/errors/user-already-exists-error'
+import { HASH_SALT } from '@/shared/utils'
 import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
 
@@ -25,7 +26,7 @@ export class RegisterUseCase {
 
     if (userWithSameEmail) throw new UserAlreadyExistsError()
 
-    const password_hash = await hash(password, 6)
+    const password_hash = await hash(password, HASH_SALT)
 
     const user = await this.userRepository.create({
       email,

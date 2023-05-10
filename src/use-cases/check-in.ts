@@ -1,6 +1,10 @@
 import { CheckInsRepository } from '@/repositories/check-ins-repository'
 import { GymsRepository } from '@/repositories/gyms-repository'
-import { ResourceNotFound } from '@/shared/errors'
+import {
+  MaxDistanceError,
+  MaxNumberOfCheckInsError,
+  ResourceNotFound,
+} from '@/shared/errors'
 import {
   MAX_DISTANCE_IN_KM,
   getDistanceBetweenCoordinates,
@@ -44,7 +48,7 @@ export class CheckInUseCase {
     )
 
     if (distance > MAX_DISTANCE_IN_KM) {
-      throw new Error()
+      throw new MaxDistanceError()
     }
 
     const checkInOnSameDay = await this.checkInRepository.findByUserIdOnDate(
@@ -53,7 +57,7 @@ export class CheckInUseCase {
     )
 
     if (checkInOnSameDay) {
-      throw new Error()
+      throw new MaxNumberOfCheckInsError()
     }
 
     const checkIn = await this.checkInRepository.create({

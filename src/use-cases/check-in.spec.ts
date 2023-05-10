@@ -1,5 +1,6 @@
 import { InMemoryCheckInsRepositoryRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { InMemoryGymsRepositoryRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
+import { MaxDistanceError, MaxNumberOfCheckInsError } from '@/shared/errors'
 import { Decimal } from '@prisma/client/runtime'
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 
@@ -15,13 +16,13 @@ describe('Check in Use Case', () => {
     gymsRepository = new InMemoryGymsRepositoryRepository()
     sut = new CheckInUseCase(checkInsRepository, gymsRepository)
 
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: 'gym-01',
       title: 'Academia',
       description: 'descrição',
       phone: '38999401128',
-      latitude: new Decimal(-27.2092052),
-      longitude: new Decimal(-47.6401091),
+      latitude: -27.2092052,
+      longitude: -47.6401091,
     })
 
     vi.useRealTimers()
@@ -58,7 +59,7 @@ describe('Check in Use Case', () => {
         userLatitude: -27.2092052,
         userLongitude: -47.6401091,
       })
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should be able to check in twice but in different day', async () => {
@@ -84,13 +85,13 @@ describe('Check in Use Case', () => {
   })
 
   it('should not be able to check in on distant gym', async () => {
-    gymsRepository.items.push({
+    gymsRepository.create({
       id: 'gym-02',
       title: 'Academia',
       description: 'descrição',
       phone: '38999401128',
-      latitude: new Decimal(-17.2277051),
-      longitude: new Decimal(-46.8509959),
+      latitude: -17.2277051,
+      longitude: -46.8509959,
     })
 
     vi.setSystemTime(new Date(2023, 0, 20, 8, 0, 0))
@@ -102,6 +103,6 @@ describe('Check in Use Case', () => {
         userLatitude: -17.2180766,
         userLongitude: -46.8661927,
       })
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })

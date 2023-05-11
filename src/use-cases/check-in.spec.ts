@@ -1,7 +1,6 @@
 import { InMemoryCheckInsRepositoryRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { InMemoryGymsRepositoryRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { MaxDistanceError, MaxNumberOfCheckInsError } from '@/shared/errors'
-import { Decimal } from '@prisma/client/runtime'
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 
 import { CheckInUseCase } from './check-in'

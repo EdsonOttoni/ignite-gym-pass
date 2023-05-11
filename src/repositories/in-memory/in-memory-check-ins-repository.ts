@@ -17,6 +17,12 @@ export class InMemoryCheckInsRepositoryRepository
     return checkIns
   }
 
+  async countByUserId(userId: string): Promise<number> {
+    const count = this.items.filter(item => item.user_id === userId).length
+
+    return count
+  }
+
   async findByUserIdOnDate(
     userId: string,
     date: Date

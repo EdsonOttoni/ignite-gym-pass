@@ -6,6 +6,14 @@ import { GymsRepository } from '../gyms-repository'
 export class InMemoryGymsRepositoryRepository implements GymsRepository {
   public items: Gym[] = []
 
+  async searchMany(query: string, page: number): Promise<Gym[]> {
+    const gyms = this.items
+      .filter(item => item.title.includes(query))
+      .slice((page - 1) * 20, page * 20)
+
+    return gyms
+  }
+
   async findById(id: string): Promise<Gym | null> {
     const gym = this.items.find(item => item.id === id)
 

@@ -3,15 +3,15 @@ import { ResourceNotFound } from '@/shared/errors'
 import { LateCheckInValidationError } from '@/shared/errors/late-check-in-validation-error'
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 
-import { ValidateCheckInCase } from './validate-check-in'
+import { ValidateCheckInUseCase } from './validate-check-in'
 
 let checkInsRepository: InMemoryCheckInsRepositoryRepository
-let sut: ValidateCheckInCase
+let sut: ValidateCheckInUseCase
 
 describe('Validate check in Use Case', () => {
   beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepositoryRepository()
-    sut = new ValidateCheckInCase(checkInsRepository)
+    sut = new ValidateCheckInUseCase(checkInsRepository)
 
     vi.useFakeTimers()
   })

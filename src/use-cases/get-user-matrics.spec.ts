@@ -1,15 +1,15 @@
 import { InMemoryCheckInsRepositoryRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { expect, describe, it, beforeEach, vi } from 'vitest'
 
-import { GetUserMeticsUseCase } from './get-user-matrics'
+import { GetUserMetricsUseCase } from './get-user-matrics'
 
 let checkInsRepository: InMemoryCheckInsRepositoryRepository
-let sut: GetUserMeticsUseCase
+let sut: GetUserMetricsUseCase
 
 describe('Get USer Metrics Use Case', () => {
   beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepositoryRepository()
-    sut = new GetUserMeticsUseCase(checkInsRepository)
+    sut = new GetUserMetricsUseCase(checkInsRepository)
 
     vi.useRealTimers()
   })

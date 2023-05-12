@@ -5,19 +5,19 @@ import { TIME_VALIDATION_OF_CREATION_CHECKIN } from '@/shared/utils'
 import { CheckIn } from '@prisma/client'
 import dayjs from 'dayjs'
 
-interface ValidateCheckInCaseRequest {
+interface ValidateCheckInUseCaseRequest {
   checkInId: string
 }
-interface ValidateCheckInCaseResponse {
+interface ValidateCheckInUseCaseResponse {
   checkIn: CheckIn
 }
 
-export class ValidateCheckInCase {
+export class ValidateCheckInUseCase {
   constructor(private checkInRepository: CheckInsRepository) {}
 
   async execute({
     checkInId,
-  }: ValidateCheckInCaseRequest): Promise<ValidateCheckInCaseResponse> {
+  }: ValidateCheckInUseCaseRequest): Promise<ValidateCheckInUseCaseResponse> {
     const checkIn = await this.checkInRepository.findById(checkInId)
 
     if (!checkIn) {

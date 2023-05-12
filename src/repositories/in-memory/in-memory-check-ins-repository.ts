@@ -9,6 +9,16 @@ export class InMemoryCheckInsRepositoryRepository
 {
   public items: CheckIn[] = []
 
+  async findById(id: string): Promise<CheckIn | null> {
+    const checkIn = this.items.find(item => item.id === id)
+
+    if (!checkIn) {
+      return null
+    }
+
+    return checkIn
+  }
+
   async findManyByUserId(userId: string, page: number): Promise<CheckIn[]> {
     const checkIns = this.items
       .filter(items => items.user_id === userId)
@@ -56,6 +66,16 @@ export class InMemoryCheckInsRepositoryRepository
     }
 
     this.items.push(checkIn)
+
+    return checkIn
+  }
+
+  async save(checkIn: CheckIn): Promise<CheckIn> {
+    const checkInIndex = this.items.findIndex(item => item.id === checkIn.id)
+
+    if (checkInIndex >= 0) {
+      this.items[checkInIndex] = checkIn
+    }
 
     return checkIn
   }

@@ -19,16 +19,23 @@ export async function authenticate(
     const prismaUsersRepository = new PrismaUsersRepository()
     const authenticateUseCase = new AuthenticateUseCase(prismaUsersRepository)
 
-    await authenticateUseCase.execute({
+    const { user } = await authenticateUseCase.execute({
       email,
       password,
     })
+
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: user.id,
+        },
+      }
+    )
+    return reply.status(200).send({ token })
   } catch (err) {
     if (err instanceof InvalidCredentialError)
       return reply.status(400).send({ error: err.message })
-
     throw err
   }
-
-  return reply.status(200).send()
 }

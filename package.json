@@ -34,6 +34,7 @@
     "vitest": "0.31.0"
   },
   "dependencies": {
+    "@fastify/jwt": "6.7.1",
     "bcryptjs": "2.4.3",
     "dayjs": "1.11.7",
     "dotenv": "16.0.3",

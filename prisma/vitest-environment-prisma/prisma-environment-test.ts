@@ -28,8 +28,6 @@ export default <Environment>{
 
     execSync('npx prisma migrate deploy')
 
-    console.log(generateDatabaseURL(schema))
-
     return {
       async teardown() {
         await prisma.$executeRawUnsafe(

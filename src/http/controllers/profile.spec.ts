@@ -11,21 +11,30 @@ describe('Register (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to authenticate', async () => {
+  it('should be able to get user profile', async () => {
     await request(app.server).post('/users').send({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '1234567',
     })
 
-    const response = await request(app.server).post('/sessions').send({
+    const authResponse = await request(app.server).post('/sessions').send({
       email: 'johndoe@example.com',
       password: '1234567',
     })
 
-    expect(response.statusCode).toEqual(200)
-    expect(response.body).toEqual({
-      token: expect.any(String),
-    })
+    const { token } = authResponse.body
+
+    const profileResponse = await request(app.server)
+      .get('/me')
+      .set('Authorization', `Bearer ${token}`)
+      .send()
+
+    expect(profileResponse.statusCode).toEqual(200)
+    expect(profileResponse.body.user).toEqual(
+      expect.objectContaining({
+        email: 'johndoe@example.com',
+      })
+    )
   })
 })
